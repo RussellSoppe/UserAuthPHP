@@ -23,13 +23,6 @@ class UserProcessTest extends TestCase
 	}
 
 	/****************Set User******************/
-	// need sanitized and checked register array
-	// need database object/connection
-
-	// returns bool
-	//returns true if sql rowCount() > 0
-	//returns faslse if sql rowCount() < 0
-
 	public function testSetUserPreparePrepareReturnsPDOStatementObject()
 	{
 		$pdoMock = $this->createMock(PDO::class);
@@ -119,6 +112,76 @@ class UserProcessTest extends TestCase
 	// returns array with bool true and cred array if creds is not empty
 	// returns array with bool false and error string if creds are empty
 
+	public function testGetUserCredsPrepareReturnsPDOStatementObject()
+	{
+		$pdoMock = $this->createMock(PDO::class);
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		// Test Prepare - returns a PDOStatement object
+		$pdoMock->expects($this->once())->method('prepare')->willReturn($pdoStatementMock);
+
+		$test = $pdoMock->prepare('SELECT hash, user_id FROM logins WHERE user_name = ?');
+
+		$this->assertIsObject($test);
+		$this->assertInstanceOf(PDOStatement::class, $test);
+	}
+
+	public function testGetUserCredsBindParamReturnsTrue()
+	{
+		$user = 'first@mail.com';
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		$pdoStatementMock->expects($this->once())->method('bindParam')->willReturn(true);
+
+		$test1 = $pdoStatementMock->bindParam(1, $user);
+
+		$this->assertTrue($test1);
+
+		return $test1;
+	}
+
+	/**
+     * @depends testGetUserCredsBindParamReturnsTrue
+     */
+	public function testGetUserCredsExecuteReturnsTrue($bool)
+	{
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		// Test execute returns true
+		$pdoStatementMock->expects($this->once())->method('execute')->willReturn($bool);
+
+		$test = $pdoStatementMock->execute();
+
+		$this->assertTrue($test);
+	}
+
+	public function testGetUserCredsFetchReturnsAssociativeArray(){
+
+		$array = array(
+			'hash'=>'lkhdiyw)(&#$hf987294792374!)(&$@)&$)(#&$',
+			'user_id'=> 3
+		);
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		//Test rowCount returns int
+ 		$pdoStatementMock->expects($this->once())->method('fetch')->willReturn($array);
+
+		$this->assertIsArray($pdoStatementMock->fetch());		
+	}
+
+	public function testGetUserCredsFetchReturnsEmptyArray(){
+
+		$array = array();
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		//Test rowCount returns int
+ 		$pdoStatementMock->expects($this->once())->method('fetch')->willReturn($array);
+
+		$this->assertEmpty($pdoStatementMock->fetch());		
+	}
 
 	/****************Register New User******************/
 	// need register array - will sanitize and check through the checkUserFields method
