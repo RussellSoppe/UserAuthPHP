@@ -39,6 +39,10 @@ class UserProcessTest extends TestCase
 	//returns bool
 	//returns true if sql rowCount() > 0
 	//returns faslse if sql rowCount() < 0
+	public function testSetCredsPrepareReturnsPDOStatementObject()
+	{
+		
+	}
 
 
 	/****************Get User Creds******************/
