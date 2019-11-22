@@ -73,7 +73,7 @@ class UserProcessTest extends TestCase
 		$this->assertTrue($test);
 	}
 
-	public function testCheckUserStatusRowCountReturnsCountOneRowEffected(){
+	public function testSetUserRowCountReturnsCountOneRowEffected(){
 
 		$pdoStatementMock = $this->createMock(PDOStatement::class);
 
@@ -82,7 +82,7 @@ class UserProcessTest extends TestCase
 		$this->assertIsInt($pdoStatementMock->rowCount());		
 	}
 
-	public function testCheckUserStatusRowCountReturnsCountZeroRowsEffected(){
+	public function testSetUserRowCountReturnsCountZeroRowsEffected(){
 
 		$pdoStatementMock = $this->createMock(PDOStatement::class);
 
@@ -90,19 +90,73 @@ class UserProcessTest extends TestCase
  		$pdoStatementMock->expects($this->once())->method('rowCount')->willReturn(0);
 		$this->assertIsInt($pdoStatementMock->rowCount());		
 	}
-	/****************Set Creds******************/
-	// need hash
-	// need username
-	// need database object/connection
 
-	//returns bool
-	//returns true if sql rowCount() > 0
-	//returns faslse if sql rowCount() < 0
+
+	/****************Set Creds******************/
 	public function testSetCredsPrepareReturnsPDOStatementObject()
 	{
-		
+		$pdoMock = $this->createMock(PDO::class);
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		// Test Prepare - returns a PDOStatement object
+		$pdoMock->expects($this->once())->method('prepare')->willReturn($pdoStatementMock);
+
+		$test = $pdoMock->prepare('INSERT INTO logins (hash, user_id, user_name) SELECT ?, user_id, user_name FROM users WHERE user_name = ?');
+
+		$this->assertIsObject($test);
+		$this->assertInstanceOf(PDOStatement::class, $test);
 	}
 
+	public function testSetCredsBindParamReturnsTrue()
+	{
+		$hash = 'o908w7avrupyeap943w70&*^$&*(6oh324no0u989vtgf0';
+		$user = 'first@mail.com';
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		$pdoStatementMock->expects($this->exactly(2))->method('bindParam')->willReturn(true);
+
+		$test1 = $pdoStatementMock->bindParam(1, $hash);
+		$test2 = $pdoStatementMock->bindParam(2, $user);
+
+		$this->assertTrue($test1);
+		$this->assertTrue($test2);
+
+		return $test2;
+	}
+
+	/**
+     * @depends testSetCredsBindParamReturnsTrue
+     */
+	public function testSetCredsExecuteReturnsTrue($bool)
+	{
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		// Test execute returns true
+		$pdoStatementMock->expects($this->once())->method('execute')->willReturn($bool);
+
+		$test = $pdoStatementMock->execute();
+
+		$this->assertTrue($test);
+	}
+
+	public function testSetCredsRowCountReturnsCountOneRowEffected(){
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		//Test rowCount returns int
+ 		$pdoStatementMock->expects($this->once())->method('rowCount')->willReturn(1);
+		$this->assertIsInt($pdoStatementMock->rowCount());		
+	}
+
+	public function testSetCredsRowCountReturnsCountZeroRowsEffected(){
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		//Test rowCount returns int
+ 		$pdoStatementMock->expects($this->once())->method('rowCount')->willReturn(0);
+		$this->assertIsInt($pdoStatementMock->rowCount());		
+	}
 
 	/****************Get User Creds******************/
 	// need username
