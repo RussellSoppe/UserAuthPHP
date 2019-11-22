@@ -1,0 +1,61 @@
+
+/*Nav in header.php*/
+#nav-ul{
+	display: flex;
+	flex-direction: row;
+	margin: 0px;
+	padding: 0px;
+}
+
+.nav-li{
+	color: blue;
+	list-style: none;
+	margin: 0px 5px 0px 0px;
+	padding: 0px;
+}
+
+
+
+
+/*login.php*/
+
+.cred-section{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(100vh-200px);
+	width: 100%;
+}
+
+.cred-form-container{
+	margin: 5%;
+	padding: 40px;
+	height: auto;
+	background-color: #BDBDBD;
+}
+
+.cred-title-container{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin: 0px 0px 15px 0px;
+}
+
+.cred-title-text{
+	margin: 10px;
+}
+
+.cred-field{
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+.cred-field > td{
+	margin: 5px 0px;
+}
+
+.cred-field > td > input{
+	padding: 5px;
+}
