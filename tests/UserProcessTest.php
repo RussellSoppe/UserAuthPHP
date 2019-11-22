@@ -30,7 +30,73 @@ class UserProcessTest extends TestCase
 	//returns true if sql rowCount() > 0
 	//returns faslse if sql rowCount() < 0
 
+	public function testSetUserPreparePrepareReturnsPDOStatementObject()
+	{
+		$pdoMock = $this->createMock(PDO::class);
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
 
+		// Test Prepare - returns a PDOStatement object
+		$pdoMock->expects($this->once())->method('prepare')->willReturn($pdoStatementMock);
+
+		$test = $pdoMock->prepare('INSERT INTO users (first_name, last_name, user_name) VALUES (?, ?, ?)');
+
+		$this->assertIsObject($test);
+		$this->assertInstanceOf(PDOStatement::class, $test);
+	}
+
+	public function testSetUserBindParamReturnsTrue()
+	{
+		$first = 'First';
+		$last = 'Last';
+		$user = 'first@mail.com';
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		$pdoStatementMock->expects($this->exactly(3))->method('bindParam')->willReturn(true);
+
+		$test1 = $pdoStatementMock->bindParam(1, $first);
+		$test2 = $pdoStatementMock->bindParam(2, $last);
+		$test3 = $pdoStatementMock->bindParam(3, $user);
+
+		$this->assertTrue($test1);
+		$this->assertTrue($test2);
+		$this->assertTrue($test3);
+
+		return $test3;
+	}
+
+	/**
+     * @depends testSetUserBindParamReturnsTrue
+     */
+	public function testSetUserExecuteReturnsTrue($bool)
+	{
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		// Test execute returns true
+		$pdoStatementMock->expects($this->once())->method('execute')->willReturn($bool);
+
+		$test = $pdoStatementMock->execute();
+
+		$this->assertTrue($test);
+	}
+
+	public function testCheckUserStatusRowCountReturnsCountOneRowEffected(){
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		//Test rowCount returns int
+ 		$pdoStatementMock->expects($this->once())->method('rowCount')->willReturn(1);
+		$this->assertIsInt($pdoStatementMock->rowCount());		
+	}
+
+	public function testCheckUserStatusRowCountReturnsCountZeroRowsEffected(){
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		//Test rowCount returns int
+ 		$pdoStatementMock->expects($this->once())->method('rowCount')->willReturn(0);
+		$this->assertIsInt($pdoStatementMock->rowCount());		
+	}
 	/****************Set Creds******************/
 	// need hash
 	// need username

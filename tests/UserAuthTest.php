@@ -77,7 +77,7 @@ class UserAuthTest extends TestCase
 	
 	/****************Check User Status******************/
 
-	public function testCheckUserStatusPrepareMakesPDOStatementObject(){
+	public function testCheckUserStatusPrepareReturnsPDOStatementObject(){
 
 		$username = 'username@mail.com';
 
