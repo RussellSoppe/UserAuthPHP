@@ -23,13 +23,6 @@ class UserProcessTest extends TestCase
 	}
 
 	/****************Set User******************/
-	// need sanitized and checked register array
-	// need database object/connection
-
-	// returns bool
-	//returns true if sql rowCount() > 0
-	//returns faslse if sql rowCount() < 0
-
 	public function testSetUserPreparePrepareReturnsPDOStatementObject()
 	{
 		$pdoMock = $this->createMock(PDO::class);
