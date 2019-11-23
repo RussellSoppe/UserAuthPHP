@@ -3,3 +3,5 @@
 debug.log
 /dev
 /vendor
+src/inc/js
+src/inc/api.php
