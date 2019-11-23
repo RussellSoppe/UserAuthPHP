@@ -16,14 +16,5 @@ include('views/header.php');
 
 include('views/content.php');
 
-?>
-
-<script>
-	helloWorld();
-	fetchTest();
-</script>
-<div id="jstophptest"></div>
-
-<?php
 include('views/footer.php');
 
