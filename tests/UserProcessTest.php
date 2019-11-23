@@ -159,16 +159,6 @@ class UserProcessTest extends TestCase
 	}
 
 	/****************Get User Creds******************/
-	// need username
-	// need database object/connection
-
-	// uses checkUserStatus to check if user exists
-	// if no user exits returns array with bool false and error string
-
-	// if user exists queries database for creds
-	// creates creds associative array from pdo->fetch
-	// returns array with bool true and cred array if creds is not empty
-	// returns array with bool false and error string if creds are empty
 
 	public function testGetUserCredsPrepareReturnsPDOStatementObject()
 	{

@@ -59,3 +59,9 @@
 .cred-field > td > input{
 	padding: 5px;
 }
+
+/*TEST*/
+
+.button{
+	background-color: pink;
+}
