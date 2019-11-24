@@ -1,35 +1,52 @@
 
+<main>
 
-<body>
+	<?php 	if(!isset($_GET['register']) && !isset($_GET['login'])): ?>
+
+		<section class="background-content-container">	
+
+				<div class="background-content">
+					<?php include('elements/securecarousel.php'); ?>	
+				</div>
+
+				<?php include('elements/about.php'); ?>
+
+		</section>
+
+	<?php 	endif; ?>
 
 
-<?php  
+	<?php 	if(isset($_GET['register']) || isset($_GET['login'])): ?>
+		<!-- User Process -->
+		<section class="background-content-container">	
 
-	echo 'Content Here';
+			<div class="background-content-wrapper">	
 
+				<div class="background-content">
+					<?php include('elements/securecarousel.php'); ?>
+				</div>
+
+				<?php include('elements/about.php'); ?>
+
+			</div>
+
+				<?php if(isset($_GET['register'])):?>
+		
+					<?php include('register.php'); ?>
+
+				<?php elseif(isset($_GET['login'])):?>
+
+					<?php include('login.php'); ?>
+
+				<?php endif; ?>
+
+		</section>
+
+	<?php 	endif; ?>
+
+	</section>
 	
-	if(isset($_GET['register'])){
-
-		include('register.php');
-
-	}elseif(isset($_GET['login'])){
-
-		include('login.php');
-	}
+</main>
 
 
-/*
-
-$_SERVER - Get or Post creates issues
-Could use Get or Post to create a $_SESSION or $_COOKIE but that creates other headaches for tracking - maybe a quick and dirty version but not a great long term control
-
-How to serve only data wanted, what is best way to control modules or views from backend?
-
-*/
-
-?>
-
-
-
-</body>
 

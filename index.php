@@ -11,7 +11,6 @@ if(isset($_POST['login'])){
 	$_SESSION['user_auth'] = UserProcess::loginUser($_POST, $database);
 }
 
-
 include('views/header.php');
 
 include('views/content.php');
