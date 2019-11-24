@@ -1,5 +1,37 @@
+/*Universals*/
+.toggle-display{
+	display: none;
+}
 
+/*Header.php*/
+#header{
+	position: relative;
+	display: flex;
+	flex-direction: row-reverse;
+	flex-direction: column-reverse;
+	/*justify-content: space-between;*/
+}
 /*Nav in header.php*/
+#nav{
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	padding: 10px;
+	/*width: 100%;*/
+	/*height: 65px;*/
+
+	/*border: solid pink;*/
+}
+
+/*Branding*/
+.title{
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+
+}
+
+/*Nav Elements*/
 #nav-ul{
 	display: flex;
 	flex-direction: row;
@@ -8,13 +40,30 @@
 }
 
 .nav-li{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
 	color: blue;
 	list-style: none;
 	margin: 0px 5px 0px 0px;
 	padding: 0px;
 }
 
+.nav-icon-container{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
 
+	width: 25px;
+	height: 25px;
+	margin: 0px 8px 0px 0px;
+}
+
+.nav-icon{
+	width: 100%;
+	height: 100%;
+}
 
 
 /*login.php*/
@@ -22,14 +71,22 @@
 .cred-section{
 	position: relative;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: flex-end;
 	align-items: center;
-	height: calc(100vh-200px);
+	height: 100%;
 	width: 100%;
+
+	margin: 2% 0;
+}
+
+.user-message-container{
+	width: 100%;
+	padding: 0px 20px;
 }
 
 .cred-form-container{
-	margin: 5%;
+	margin: 8% 0;
 	padding: 40px;
 	height: auto;
 	background-color: #BDBDBD;
@@ -64,4 +121,94 @@
 
 .button{
 	background-color: pink;
+}
+
+/*Content*/
+
+.background-content-container{
+	display: flex;
+	flex-direction: row;
+	position: relative;
+
+	width: 100%;
+	max-height: 500px;
+	overflow: hidden;
+}
+
+.background-content-wrapper{
+	display: none;
+}
+
+.background-content{
+	display:block;
+	position: absolute;
+	object-fit: cover;
+
+}
+
+/*About.php*/
+
+#about{
+
+}
+
+.about-article{
+	margin: 5%;
+	color: white;
+}
+
+
+/*Carousel*/
+
+.carousel-container-outer{
+	display: none;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+
+	position: relative;
+	z-index: -10;
+}
+
+.carousel-dimmer{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	background: rgba(100, 100, 200, .8);
+	z-index: -11;
+}
+
+.carousel-container-inner{
+	width: 100%;
+	z-index: -12;
+}
+
+main{
+	position: relative;
+}
+
+footer{
+	position: relative;
+	width: 100%;
+	background-color: #446ab5;
+}
+
+@media only screen and (min-width: 600px) {
+
+	#header{
+		flex-direction: row-reverse;
+		justify-content: space-between;
+	}
+
+	.background-content-wrapper{
+		display: block;
+	}
+
+	.background-content-container{
+		min-height: 600px;
+	}
+
+
+
 }

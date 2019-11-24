@@ -1,18 +1,26 @@
-<?php  
-
-if(isset($_SESSION['user_register']) && $_SESSION['user_register'][0] == true):?>
-
-	<div>Success</div>
-
-<?php elseif(isset($_SESSION['user_register']) && $_SESSION['user_register'][0] == false): ?>
-
-	<div class='alert alert-warning'> <?php echo htmlspecialchars($_SESSION['user_register'][1], ENT_COMPAT, 'UTF-8'); ?>
-	</div>
-
-<?php endif;?>
 
 <section class="cred-section">	
-	<div class="cred-form-container">	
+
+	<?php if(isset($_SESSION['user_register'])):?>
+		<div class="user-message-container">
+		<?php  
+
+			if(isset($_SESSION['user_register']) && $_SESSION['user_register'][0] == true):?>
+
+				<div class="alert alert-success">Success</div>
+
+			<?php elseif(isset($_SESSION['user_register']) && $_SESSION['user_register'][0] == false): ?>
+
+				<div class='alert alert-warning'> <?php echo htmlspecialchars($_SESSION['user_register'][1], ENT_COMPAT, 'UTF-8'); ?>
+				</div>
+
+			<?php unset($_SESSION['user_register']); endif;?>
+		</div>
+		
+	<?php endif; ?>
+
+	<div class="cred-form-container">
+
 		<form method="post" action="index.php?register=true">
 
 			<table>
