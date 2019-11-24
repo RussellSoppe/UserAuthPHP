@@ -14,10 +14,10 @@
 				<div class='alert alert-warning'> <?php echo htmlspecialchars($_SESSION['user_register'][1], ENT_COMPAT, 'UTF-8'); ?>
 				</div>
 
-			<?php unset($_SESSION['user_register']); endif;?>
+			<?php  endif; ?>
 		</div>
 		
-	<?php endif; ?>
+	<?php unset($_SESSION['user_register']); endif; ?>
 
 	<div class="cred-form-container">
 

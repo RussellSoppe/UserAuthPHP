@@ -15,10 +15,10 @@
 				<div class='alert alert-warning'> <?php echo htmlspecialchars($_SESSION['user_auth'][1], ENT_COMPAT, 'UTF-8'); ?>
 				</div>
 
-			<?php unset($_SESSION['user_auth']); endif;?>
+			<?php endif;?>
 		</div>
 		
-	<?php endif; ?>
+	<?php unset($_SESSION['user_auth']); endif; ?>
 
 	<div class="cred-form-container">	
 		<form method="post" action="index.php?login=true">
