@@ -1,0 +1,35 @@
+article{
+	margin: 0px 0px 30px 0px;
+}
+
+h1{
+	border-bottom: solid grey 5px;
+	margin-bottom: 10px;
+	font-size: 1.4em;
+}
+
+tr{
+	display: flex;
+	flex-direction: row;
+}
+
+th{
+	padding: 8px;
+	width: 100px;
+}
+
+td{
+	width: 150px;
+	padding: 8px;
+	border-left: solid darkgrey 3px;
+}
+
+form{
+	display: flex;
+	flex-direction: column;
+}
+
+form > input{
+	padding: 8px;
+	margin: 0px 0px 5px 0px;
+}

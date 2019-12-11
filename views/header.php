@@ -22,18 +22,34 @@
 				</div>
 				<a href="index.php">Home</a>
 			</li>
-			<li class="nav-li">
-				<div class="nav-icon-container">
-					<img class="nav-icon" src="src/inc/imgs/register.svg">
-				</div>
-				<a href="index.php?register='true'">Register</a>
-			</li>
-			<li class="nav-li">
-				<div class="nav-icon-container">
-					<img class="nav-icon" src="src/inc/imgs/lock-locked.svg">
-				</div>
-				<a href="index.php?login='true'">Login</a>
-			</li>
+
+			<?php if(isset($_SESSION['user_auth'])):?>
+
+				<li class="nav-li">
+					<div class="nav-icon-container">
+						<img class="nav-icon" src="src/inc/imgs/lock-locked.svg">
+					</div>
+					<a href="<?php echo UserAuthControl::logout(); ?>">Logout</a>
+				</li>
+		
+			<?php  else:?>
+
+				<li class="nav-li">
+					<div class="nav-icon-container">
+						<img class="nav-icon" src="src/inc/imgs/register.svg">
+					</div>
+					<a href="index.php?register='true'">Register</a>
+				</li>
+
+				<li class="nav-li">
+					<div class="nav-icon-container">
+						<img class="nav-icon" src="src/inc/imgs/lock-locked.svg">
+					</div>
+					<a href="index.php?login='true'">Login</a>
+				</li>
+
+			<?php  endif; ?>
+			
 		</ul>
 	</nav>
 	<section class="title">	

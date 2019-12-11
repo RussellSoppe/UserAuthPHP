@@ -194,6 +194,56 @@ footer{
 	background-color: #446ab5;
 }
 
+
+/*UserProfile*/
+
+.user-profile-section{
+	display: flex;
+	flex-direction: column;
+}
+
+.user-profile-article{
+	margin: 0px 15px 30px 15px;
+}
+
+.user-profile-table{
+	margin: 0px 0px 20px 0px;
+}
+
+.userprofileheader{
+	border-bottom: solid grey 5px;
+	margin-bottom: 10px;
+	font-size: 1.4em;
+}
+
+.user-profile-table tr{
+	display: flex;
+	flex-direction: row;
+}
+
+.user-profile-table th{
+	padding: 8px;
+	width: 100px;
+}
+
+.user-profile-table td{
+	width: 150px;
+	padding: 8px;
+	border-left: solid darkgrey 3px;
+}
+
+.user-profile-form{
+	display: flex;
+	flex-direction: column;
+}
+
+.user-profile-form > input{
+	padding: 8px;
+	margin: 0px 0px 5px 0px;
+}
+
+
+
 @media only screen and (min-width: 600px) {
 
 	#header{
