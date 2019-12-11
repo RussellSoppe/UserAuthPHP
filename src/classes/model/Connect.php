@@ -3,11 +3,11 @@
 class Connect
 {
 
-	public function connectMySQL($dburl, $dbname, $dbuser, $dbpassword)
+	public function connectMySQL($db_creds)
 	{
 		try {
 				
-			$database = new PDO('mysql:host=' . $dburl .';dbname=' . $dbname, $dbuser, $dbpassword);
+			$database = new PDO('mysql:host=' . $db_creds['dburl'] .';dbname=' . $db_creds['dbname'], $db_creds['dbuser'], $db_creds['dbpassword']);
 
 			$database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -36,4 +36,5 @@ class Connect
 		}
 			
 	}
+
 }

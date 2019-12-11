@@ -64,6 +64,10 @@ class DataSecureTest extends TestCase
 		"code" => "<script>console.log('test');</script>"
 	);
 
+	private $password = '1234$Yes!';
+	private $password_match = '1234$Yes!';
+	private $password_no_match = '1234$No!';
+
 	/****************Test of Test!******************/
 	public function testIfEmptyArray()
 	{
@@ -123,7 +127,7 @@ class DataSecureTest extends TestCase
 
 	}
 
-	/****************Check User Fields******************/
+	/****************CheckHasHoneyPot******************/
 
 	// String In The HoneyPot Returns False, !empty("") = false
 	public function testCheckHasHoneyPotCheckBoolAndFalse()
@@ -143,6 +147,9 @@ class DataSecureTest extends TestCase
 		$this->assertIsBool($check_true);
 		$this->assertTrue($check_true);
 	}
+
+
+	/****************CheckHasEmptyFields******************/
 	
 	// Check if empty field exists True if fields are empty, false if filled up (2) tests
 	public function testCheckHasEmptyFieldsBoolAndTrue()
@@ -160,6 +167,65 @@ class DataSecureTest extends TestCase
 		$this->assertFalse($check_false);
 	}
 
+	/****************Check Password Match******************/
+
+	// Check if passwords match or don't match (2) tests
+	public function testCheckPasswordMatchBoolAndTrue()
+	{
+		$check_match = UserAuth::checkPasswordMatch($this->password, $this->password_match);
+
+		$this->assertIsBool($check_match);
+		$this->assertTrue($check_match);
+	}
+
+	public function testCheckPasswordMatchBoolAndFalse()
+	{
+		$check_not_match = UserAuth::checkPasswordMatch($this->password, $this->password_no_match);
+
+		$this->assertIsBool($check_not_match);
+		$this->assertFalse($check_not_match);
+	}
+	
+	/****************Create Hash******************/
+	public function testCreateHashIfHashIsString()
+	{
+		$check = UserAuth::createHash($this->password);
+
+		$this->assertIsString($check);
+
+		return $check;
+	}
+
+
+	
+	/****************VerifyCred******************/
+
+	/**
+     * @depends testCreateHashIfHashIsString
+     */
+	public function testVerifyCredPasswordHashMatchTrue($hash)
+	{
+		
+		$check = UserAuth::verifyCred($this->password_match, $hash);
+
+		$this->assertIsBool($check);
+		$this->assertTrue($check);
+	}
+
+	/**
+     * @depends testCreateHashIfHashIsString
+     */
+	public function testVerifyCredPasswordHashMatchFalse($hash)
+	{
+		
+		$check = UserAuth::verifyCred($this->password_no_match, $hash);
+
+		$this->assertIsBool($check);
+		$this->assertFalse($check);
+	}
+
+
+	/****************CheckRegisterFields******************/
 
 	// checkRegisterFields Method (4) Tests
 	public function testCheckRegisterFieldsReturnArrayFalseAndStringHoneyPot()
@@ -199,6 +265,8 @@ class DataSecureTest extends TestCase
 		$this->assertIsArray($check_array[1]);
 	}
 
+
+	/****************CheckLoginFields******************/
 
 	// checkLoginFields Method (3) Tests
 	public function testCheckLoginFieldsReturnArrayFalseAndStringHoneyPot()

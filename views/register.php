@@ -5,14 +5,10 @@
 		<div class="user-message-container">
 		<?php  
 
-			if(isset($_SESSION['user_register']) && $_SESSION['user_register'][0] == true):?>
+		if($_SESSION['user_register'][0] == false): ?>
 
-				<div class="alert alert-success">Success</div>
-
-			<?php elseif(isset($_SESSION['user_register']) && $_SESSION['user_register'][0] == false): ?>
-
-				<div class='alert alert-warning'> <?php echo htmlspecialchars($_SESSION['user_register'][1], ENT_COMPAT, 'UTF-8'); ?>
-				</div>
+			<div class='alert alert-warning'> <?php echo htmlspecialchars($_SESSION['user_register'][1], ENT_COMPAT, 'UTF-8'); ?>
+			</div>
 
 			<?php  endif; ?>
 		</div>

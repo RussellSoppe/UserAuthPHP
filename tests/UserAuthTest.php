@@ -18,62 +18,6 @@ class UserAuthTest extends TestCase
 		$this->assertSame(0, count($user_array));
 	}
 
-	/****************Check Password Match******************/
-
-	// Check if passwords match or don't match (2) tests
-	public function testCheckPasswordMatchBoolAndTrue()
-	{
-		$check_match = UserAuth::checkPasswordMatch($this->password, $this->password_match);
-
-		$this->assertIsBool($check_match);
-		$this->assertTrue($check_match);
-	}
-
-	public function testCheckPasswordMatchBoolAndFalse()
-	{
-		$check_not_match = UserAuth::checkPasswordMatch($this->password, $this->password_no_match);
-
-		$this->assertIsBool($check_not_match);
-		$this->assertFalse($check_not_match);
-	}
-	
-	/****************Create Hash******************/
-	public function testCreateHashIfHashIsString()
-	{
-		$check = UserAuth::createHash($this->password);
-
-		$this->assertIsString($check);
-
-		return $check;
-	}
-
-
-	/****************Check Hash Match******************/
-
-	/**
-     * @depends testCreateHashIfHashIsString
-     */
-	public function testVerifyCredPasswordHashMatchTrue($hash)
-	{
-		
-		$check = UserAuth::verifyCred($this->password, $hash);
-
-		$this->assertIsBool($check);
-		$this->assertTrue($check);
-	}
-
-	/**
-     * @depends testCreateHashIfHashIsString
-     */
-	public function testVerifyCredPasswordHashMatchFalse($hash)
-	{
-		
-		$check = UserAuth::verifyCred($this->password_no_match, $hash);
-
-		$this->assertIsBool($check);
-		$this->assertFalse($check);
-	}
-
 	
 	/****************Check User Status******************/
 
@@ -144,5 +88,84 @@ class UserAuthTest extends TestCase
  		$pdoStatementMock->expects($this->once())->method('rowCount')->willReturn(0);
 		$this->assertIsInt($pdoStatementMock->rowCount());		
 	}
+
+	/****************Get User Creds******************/
+
+	public function testGetUserCredsPrepareReturnsPDOStatementObject()
+	{
+		$pdoMock = $this->createMock(PDO::class);
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		// Test Prepare - returns a PDOStatement object
+		$pdoMock->expects($this->once())->method('prepare')->willReturn($pdoStatementMock);
+
+		$test = $pdoMock->prepare('SELECT hash, user_id FROM logins WHERE user_name = ?');
+
+		$this->assertIsObject($test);
+		$this->assertInstanceOf(PDOStatement::class, $test);
+	}
+
+	public function testGetUserCredsBindParamReturnsTrue()
+	{
+		$user = 'first@mail.com';
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		$pdoStatementMock->expects($this->once())->method('bindParam')->willReturn(true);
+
+		$test1 = $pdoStatementMock->bindParam(1, $user);
+
+		$this->assertTrue($test1);
+
+		return $test1;
+	}
+
+	/**
+     * @depends testGetUserCredsBindParamReturnsTrue
+     */
+	public function testGetUserCredsExecuteReturnsTrue($bool)
+	{
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		// Test execute returns true
+		$pdoStatementMock->expects($this->once())->method('execute')->willReturn($bool);
+
+		$test = $pdoStatementMock->execute();
+
+		$this->assertTrue($test);
+	}
+
+	public function testGetUserCredsFetchReturnsAssociativeArray(){
+
+		$array = array(
+			'hash'=>'lkhdiyw)(&#$hf987294792374!)(&$@)&$)(#&$',
+			'user_id'=> 3
+		);
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		//Test rowCount returns int
+ 		$pdoStatementMock->expects($this->once())->method('fetch')->willReturn($array);
+
+		$this->assertIsArray($pdoStatementMock->fetch());		
+	}
+
+	public function testGetUserCredsFetchReturnsEmptyArray(){
+
+		$array = array();
+
+		$pdoStatementMock = $this->createMock(PDOStatement::class);
+
+		//Test rowCount returns int
+ 		$pdoStatementMock->expects($this->once())->method('fetch')->willReturn($array);
+
+		$this->assertEmpty($pdoStatementMock->fetch());		
+	}
+
+
+	/****************LoginUser******************/
+
+
+	/****************UserSession******************/
 
 }

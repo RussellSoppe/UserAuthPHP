@@ -6,11 +6,7 @@
 		<div class="user-message-container">
 			<?php  
 
-			if(isset($_SESSION['user_auth']) && $_SESSION['user_auth'][0] == true):?>
-
-				<div class="alert alert-success">Success</div>
-
-			<?php elseif(isset($_SESSION['user_auth']) && $_SESSION['user_auth'][0] == false): ?>
+			if($_SESSION['user_auth'][0] == false): ?>
 
 				<div class='alert alert-warning'> <?php echo htmlspecialchars($_SESSION['user_auth'][1], ENT_COMPAT, 'UTF-8'); ?>
 				</div>
@@ -21,6 +17,7 @@
 	<?php unset($_SESSION['user_auth']); endif; ?>
 
 	<div class="cred-form-container">	
+
 		<form method="post" action="index.php?login=true">
 			<div class="cred-title-container">	
 				<img src="src/inc/imgs/geardiamondlogo2.svg" width="50px" height="50px">
@@ -48,5 +45,6 @@
 			<input type="submit" name="login" class="btn btn-primary">
 
 		</form>
+		
 	</div>
 </section>
